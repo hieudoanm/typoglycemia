@@ -1,6 +1,6 @@
 import { Editor } from '@typoglycemia/components/Editor';
 import { Typoglycemia } from '@typoglycemia/components/Typoglycemia';
-import { useTheme } from '@typoglycemia/hooks/use-theme';
+import { Theme, useTheme } from '@typoglycemia/hooks/use-theme';
 import 'github-markdown-css/github-markdown.css';
 import { marked } from 'marked';
 import { NextPage } from 'next';
@@ -19,7 +19,7 @@ const HomePage: NextPage = () => {
     output: '',
   });
 
-  const { theme, toggleTheme } = useTheme('dark');
+  const { theme, toggleTheme } = useTheme(Theme.DARK);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {

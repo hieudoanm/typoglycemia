@@ -1,33 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-type Theme = 'lofi' | 'dark';
+export enum Theme {
+  DARK = 'dark',
+  LIGHT = 'lofi',
+}
 
 const KEY = 'typoglycemia-theme';
 
-export const useTheme = (defaultTheme: Theme) => {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+export const useTheme = (defaultTheme: Theme = Theme.LIGHT) => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Lazy initializer: check localStorage first, then system preference
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(KEY) as Theme | null;
+      if (saved) return saved;
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)',
+      ).matches;
+      return prefersDark ? Theme.DARK : Theme.LIGHT;
+    }
+    return defaultTheme;
+  });
 
-  // Apply + persist theme
+  // Apply theme to document root
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
-    localStorage.setItem(KEY, theme);
+
+    try {
+      localStorage.setItem(KEY, theme);
+    } catch (error) {
+      console.error(error);
+    }
   }, [theme]);
 
-  // Load saved theme
-  useEffect(() => {
-    const setThemeFromLocalStorage = () => {
-      const saved = localStorage.getItem(KEY) as Theme | null;
-      if (saved) setTheme(saved);
-    };
-    setThemeFromLocalStorage();
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => (t === Theme.DARK ? Theme.LIGHT : Theme.DARK));
   }, []);
-
-  const toggleTheme = () => {
-    setTheme((t) => {
-      return t === 'dark' ? 'lofi' : 'dark';
-    });
-  };
 
   return { theme, toggleTheme };
 };
