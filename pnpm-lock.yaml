@@ -21,8 +21,8 @@ importers:
         specifier: 3.3.1
         version: 3.3.1
       github-markdown-css:
-        specifier: 5.8.1
-        version: 5.8.1
+        specifier: 5.9.0
+        version: 5.9.0
       html2canvas-pro:
         specifier: 1.6.6
         version: 1.6.6
@@ -1809,8 +1809,8 @@ packages:
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
-  github-markdown-css@5.8.1:
-    resolution: {integrity: sha512-8G+PFvqigBQSWLQjyzgpa2ThD9bo7+kDsriUIidGcRhXgmcaAWUIpCZf8DavJgc+xifjbCG+GvMyWr0XMXmc7g==}
+  github-markdown-css@5.9.0:
+    resolution: {integrity: sha512-tmT5sY+zvg2302XLYEfH2mtkViIM1SWf2nvYoF5N1ZsO0V6B2qZTiw3GOzw4vpjLygK/KG35qRlPFweHqfzz5w==}
     engines: {node: '>=10'}
 
   glob-parent@5.1.2:
@@ -5306,7 +5306,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  github-markdown-css@5.8.1: {}
+  github-markdown-css@5.9.0: {}
 
   glob-parent@5.1.2:
     dependencies:
