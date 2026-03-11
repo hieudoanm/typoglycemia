@@ -33,7 +33,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "dompurify": "3.3.2",
+    "dompurify": "3.3.3",
     "github-markdown-css": "5.9.0",
     "html2canvas-pro": "2.0.2",
     "marked": "17.0.4",
