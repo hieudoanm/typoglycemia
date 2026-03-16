@@ -1,87 +1,83 @@
-import { Editor } from '@typoglycemia/components/Editor';
-import { Typoglycemia } from '@typoglycemia/components/Typoglycemia';
-import { Theme, useTheme } from '@typoglycemia/hooks/use-theme';
-import 'github-markdown-css/github-markdown.css';
-import { marked } from 'marked';
+import {
+  LandingContent,
+  LandingTemplate,
+} from '@typoglycemia/templates/LandingTemplate';
 import { NextPage } from 'next';
-import { ChangeEvent, useEffect, useState } from 'react';
 
-const INITIAL = `# Typoglycemia
-
-Typoglycemia is a made-up word that comes from typo and hypoglycemia. It describes a popular idea about how people read text. The idea says that readers can understand words even when the letters in the middle are mixed up, as long as the first and last letters stay the same. Many examples of this are shared online to show how “easy” it is to read scrambled text.
-
-However, this idea is often exaggerated. Reading mixed-up words works best when the words are familiar and the sentence gives clear context. If too many letters are changed, or the text is complex, reading becomes much harder. Because of this, typoglycemia is considered an Internet myth rather than proven science.
-`;
+const content: LandingContent = {
+  navbar: {
+    title: 'AppName',
+    buttonText: 'Open App',
+    buttonHref: '/app',
+  },
+  hero: {
+    title: 'Simple, Powerful, and Built for Speed',
+    tagline:
+      'A fast and intuitive app designed to help you get things done quickly and efficiently.',
+    buttonText: 'Get Started',
+    buttonHref: '/app',
+  },
+  features: {
+    title: 'Features',
+    items: [
+      {
+        id: 'fast',
+        emoji: '⚡',
+        title: 'Fast and Responsive',
+        description:
+          'Enjoy a smooth and responsive experience designed for speed and efficiency.',
+      },
+      {
+        id: 'easy',
+        emoji: '✨',
+        title: 'Easy to Use',
+        description:
+          'Clean and intuitive design that lets you focus on what matters most.',
+      },
+      {
+        id: 'powerful',
+        emoji: '🧰',
+        title: 'Powerful Tools',
+        description:
+          'Packed with useful features to help you work smarter and more effectively.',
+      },
+      {
+        id: 'privacy',
+        emoji: '🔒',
+        title: 'Privacy First',
+        description:
+          'Your data stays in your control with privacy-focused design and secure processing.',
+      },
+      {
+        id: 'accessible',
+        emoji: '🌐',
+        title: 'Accessible Anywhere',
+        description:
+          'Use the app from any modern browser on desktop, tablet, or mobile.',
+      },
+      {
+        id: 'lightweight',
+        emoji: '📦',
+        title: 'Lightweight',
+        description:
+          'Minimal dependencies and optimized performance for a fast loading experience.',
+      },
+    ],
+  },
+  cta: {
+    title: 'Ready to Get Started?',
+    description:
+      'Open the app and start using it instantly. No signup required.',
+    buttonText: 'Open App',
+    buttonHref: '/app',
+  },
+  footer: {
+    name: 'AppName',
+  },
+};
 
 const HomePage: NextPage = () => {
-  const [{ input, output }, setState] = useState({
-    input: INITIAL,
-    output: '',
-  });
-
-  const { theme, toggleTheme } = useTheme(Theme.DARK);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  useEffect(() => {
-    const setHTML = async () => {
-      const html = await marked(input);
-      setState((prev) => ({ ...prev, output: html }));
-    };
-    setHTML();
-  }, [input]);
-
-  return (
-    <div className="divide-base-300 bg-base-100 flex h-screen w-screen flex-col divide-y">
-      {/* ---------- NAV ---------- */}
-      <nav className="flex items-center justify-between px-4 py-2 md:px-8 md:py-4">
-        <span className="font-night">Typoglycemia</span>
-
-        <div className="flex gap-2">
-          {/* Fullscreen toggle */}
-          <button
-            className="btn btn-ghost btn-sm hidden md:flex"
-            onClick={() => setIsFullscreen((v) => !v)}>
-            {isFullscreen ? '📘 Exit' : '📖 Fullscreen'}
-          </button>
-
-          {/* Theme toggle */}
-          <button className="btn btn-ghost btn-sm" onClick={toggleTheme}>
-            {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
-          </button>
-        </div>
-      </nav>
-
-      {/* ---------- CONTENT ---------- */}
-      <div className="grow">
-        <div
-          className={`grid h-full ${
-            isFullscreen
-              ? 'grid-cols-1'
-              : 'grid-cols-1 md:grid-cols-2 md:divide-x'
-          } divide-base-300`}>
-          {/* Editor (hidden in fullscreen OR on mobile) */}
-          {!isFullscreen && (
-            <div className="col-span-1 hidden md:block">
-              <Editor
-                value={input}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                  setState((prev) => ({
-                    ...prev,
-                    input: event.target.value,
-                  }));
-                }}
-              />
-            </div>
-          )}
-
-          {/* Typoglycemia */}
-          <div className="col-span-1 overflow-hidden">
-            <Typoglycemia html={output} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <LandingTemplate content={content} />;
 };
 
 export default HomePage;
