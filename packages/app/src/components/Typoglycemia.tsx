@@ -109,11 +109,11 @@ export const Typoglycemia: FC<{ html: string; intervalMs?: number }> = ({
     <div className="divide-base-300 flex h-full flex-col divide-y">
       <div
         ref={imageRef}
-        className="scrollbar-none h-full w-full overflow-auto p-4 md:p-8">
+        className="scrollbar-none h-full w-full overflow-auto">
         <div
           ref={containerRef}
           dangerouslySetInnerHTML={{ __html: sanitizedHTML ?? '' }}
-          className="markdown-body !bg-base-100 !text-base-content h-full w-full"
+          className="markdown-body !bg-base-200 !text-base-content h-full w-full"
         />
       </div>
 
